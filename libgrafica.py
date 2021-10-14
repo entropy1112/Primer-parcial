@@ -9,6 +9,9 @@ PURPURA = [255,100,255]
 AMARILLO = [255,233,0]
 NARANJA = [210,105,30]
 MORADO = [153,50,204]
+
+colores = [ BLANCO,NEGRO,AZUL,ROJO,VERDE,PURPURA,AMARILLO,NARANJA,MORADO ]
+
 ANCHO = 1000
 ALTO = 600
 
@@ -81,3 +84,11 @@ def centrar(puntos, centro):
 		punto[1] -= dy
 
 	return puntos
+
+def traslacion_pol(poligono, t):
+	poligono_2 = []
+
+	for pto in poligono:
+		poligono_2.append( traslacion(pto, t) )
+
+	return poligono_2
