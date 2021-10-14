@@ -2,35 +2,6 @@ import pygame
 import random
 from libgrafica import *
 
-def dibujar_pol(poligonos):
-	pantalla.fill(NEGRO)
-	## Base y laterales traseros
-	pygame.draw.polygon(pantalla,VERDE,poligonos[0])
-	pygame.draw.polygon(pantalla,AZUL,poligonos[1])
-	pygame.draw.polygon(pantalla,AMARILLO,poligonos[2])
-
-	## Cruz 
-	pygame.draw.polygon(pantalla,MORADO,poligonos[3])
-
-	## Rectangulos internos 	
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[4])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[5])
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[6])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[7])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[8])
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[9])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[10])
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[11])
-
-	## Laterales delanteros
-	pygame.draw.polygon(pantalla,BLANCO,poligonos[12])
-	pygame.draw.polygon(pantalla,ROJO,poligonos[13])
-
-	## Cuadrados superiores
-	pygame.draw.polygon(pantalla,VERDE,poligonos[14])
-	pygame.draw.polygon(pantalla,VERDE,poligonos[15])
-	pygame.draw.polygon(pantalla,VERDE,poligonos[16])
-	pygame.draw.polygon(pantalla,VERDE,poligonos[17])
 
 if __name__ == '__main__':
 	pygame.init()
@@ -127,7 +98,7 @@ if __name__ == '__main__':
  				poligono8, poligono9 ]
 
 
-	dibujar_pol(poligonos)
+	dibujar_pol(poligonos, pantalla)
 	
 
 	fin = False
@@ -143,28 +114,54 @@ if __name__ == '__main__':
 						poligono = traslacion_pol(poligono, [0,-20])
 						poligonos2.append(poligono)
 					poligonos = poligonos2
-					dibujar_pol(poligonos2)
+					dibujar_pol(poligonos2,pantalla)
 				if event.key == pygame.K_DOWN:
 					poligonos2 = []
 					for poligono in poligonos:
 						poligono = traslacion_pol(poligono, [0,20])
 						poligonos2.append(poligono)
 					poligonos = poligonos2
-					dibujar_pol(poligonos2)
+					dibujar_pol(poligonos2,pantalla)
 				if event.key == pygame.K_LEFT:
 					poligonos2 = []
 					for poligono in poligonos:
 						poligono = traslacion_pol(poligono, [-20,0])
 						poligonos2.append(poligono)
 					poligonos = poligonos2
-					dibujar_pol(poligonos2)
+					dibujar_pol(poligonos2,pantalla)
 				if event.key == pygame.K_RIGHT:
 					poligonos2 = []
 					for poligono in poligonos:
 						poligono = traslacion_pol(poligono, [20,0])
 						poligonos2.append(poligono)
 					poligonos = poligonos2
-					dibujar_pol(poligonos2)
+					dibujar_pol(poligonos2,pantalla)
+
+			if event.type == pygame.MOUSEBUTTONDOWN:
+				print(event.button)
+				if event.button == 4:
+					c = calCentro(maxmin(poligonos))
+					i = 0
+					for poligono in poligonos:
+						poligono = rotacion_pol_ah(poligono)
+						poligonos[i] = poligono
+						i += 1
+
+					poligonos = centrar(poligonos,c)
+					pantalla.fill(NEGRO)
+					dibujar_pol(poligonos,pantalla)
+				if event.button == 5:
+					c = calCentro(maxmin(poligonos))
+					i = 0
+					for poligono in poligonos:
+						poligono = rotacion_pol_h(poligono)
+						poligonos[i] = poligono
+						i += 1
+						
+					poligonos = centrar(poligonos,c)
+					pantalla.fill(NEGRO)
+					dibujar_pol(poligonos,pantalla)
+
 
 
 		pygame.display.flip()		

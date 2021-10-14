@@ -1,4 +1,5 @@
 import math
+import pygame 
 
 BLANCO = [255,255,255]
 NEGRO = [0,0,0]
@@ -34,34 +35,34 @@ def traslacion(p,t):
 
 def rotacion_ah(p,angulo):
 	a = math.radians(angulo)
-	xp = int((p[0]*math.cos(a)) + (p[1]*math.sin(a)))
-	yp = int((- p[0]*math.sin(a)) + (p[1]*math.cos(a)))
+	xp = (p[0]*math.cos(a)) + (p[1]*math.sin(a))
+	yp = (- p[0]*math.sin(a)) + (p[1]*math.cos(a))
 
 	return [xp,yp]
 
 def rotacion_h(p,angulo):
 	a = math.radians(angulo)
-	xp = int((p[0]*math.cos(a)) - (p[1]*math.sin(a)))
-	yp = int((p[0]*math.sin(a)) + (p[1]*math.cos(a)))
+	xp = (p[0]*math.cos(a)) - (p[1]*math.sin(a))
+	yp = (p[0]*math.sin(a)) + (p[1]*math.cos(a))
 
 	return [xp,yp]
 
 
-def maxmin(puntos):
+def maxmin(poligonos):
 	max_x = 0
 	max_y = 0
 	min_x = 10000
 	min_y = 10000
-
-	for punto in puntos:
-		if punto[0] > max_x:
-			max_x = punto[0]
-		if punto[1] > max_y:
-			max_y = punto[1]
-		if punto[0] < min_x:
-			min_x = punto[0]
-		if punto[1] < min_y:
-			min_y = punto[1]
+	for poligono in poligonos:
+		for punto in poligono:
+			if punto[0] > max_x:
+				max_x = punto[0]
+			if punto[1] > max_y:
+				max_y = punto[1]
+			if punto[0] < min_x:
+				min_x = punto[0]
+			if punto[1] < min_y:
+				min_y = punto[1]
 
 	#print( [ [max_x,min_x] , [max_y,min_y] ])
 	return [ [max_x,min_x] , [max_y,min_y] ]
@@ -74,21 +75,66 @@ def calCentro(mm):
 
 	return centro
 
-def centrar(puntos, centro):
-	centroActual = calCentro(maxmin(puntos))
+def centrar(poligonos, centro):
+	centroActual = calCentro(maxmin(poligonos))
 	dx = centroActual[0] - centro[0]
 	dy = centroActual[1] - centro[1]
 
-	for punto in puntos:
-		punto[0] -= dx
-		punto[1] -= dy
+	for poligono in poligonos:
+		for punto in poligono:
+			punto[0] -= dx
+			punto[1] -= dy
 
-	return puntos
+	return poligonos
 
 def traslacion_pol(poligono, t):
 	poligono_2 = []
 
 	for pto in poligono:
 		poligono_2.append( traslacion(pto, t) )
+
+	return poligono_2
+
+def dibujar_pol(poligonos, pantalla):
+	pantalla.fill(NEGRO)
+	## Base y laterales traseros
+	pygame.draw.polygon(pantalla,VERDE,poligonos[0])
+	pygame.draw.polygon(pantalla,AZUL,poligonos[1])
+	pygame.draw.polygon(pantalla,AMARILLO,poligonos[2])
+
+	## Cruz 
+	pygame.draw.polygon(pantalla,MORADO,poligonos[3])
+
+	## Rectangulos internos 	
+	pygame.draw.polygon(pantalla,PURPURA,poligonos[4])
+	pygame.draw.polygon(pantalla,NARANJA,poligonos[5])
+	pygame.draw.polygon(pantalla,PURPURA,poligonos[6])
+	pygame.draw.polygon(pantalla,NARANJA,poligonos[7])
+	pygame.draw.polygon(pantalla,NARANJA,poligonos[8])
+	pygame.draw.polygon(pantalla,PURPURA,poligonos[9])
+	pygame.draw.polygon(pantalla,NARANJA,poligonos[10])
+	pygame.draw.polygon(pantalla,PURPURA,poligonos[11])
+
+	## Laterales delanteros
+	pygame.draw.polygon(pantalla,BLANCO,poligonos[12])
+	pygame.draw.polygon(pantalla,ROJO,poligonos[13])
+
+	## Cuadrados superiores
+	pygame.draw.polygon(pantalla,VERDE,poligonos[14])
+	pygame.draw.polygon(pantalla,VERDE,poligonos[15])
+	pygame.draw.polygon(pantalla,VERDE,poligonos[16])
+	pygame.draw.polygon(pantalla,VERDE,poligonos[17])
+
+def rotacion_pol_ah(poligono):
+	poligono_2 = []
+	for pto in poligono:
+		poligono_2.append( rotacion_ah(pto, 5) )
+
+	return poligono_2
+
+def rotacion_pol_h(poligono):
+	poligono_2 = []
+	for pto in poligono:
+		poligono_2.append( rotacion_h(pto, 5) )
 
 	return poligono_2
