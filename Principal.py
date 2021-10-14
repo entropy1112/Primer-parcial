@@ -127,33 +127,7 @@ if __name__ == '__main__':
  				poligono8, poligono9 ]
 
 
-	## Base y laterales traseros
-	pygame.draw.polygon(pantalla,VERDE,poligonos[0])
-	pygame.draw.polygon(pantalla,AZUL,poligonos[1])
-	pygame.draw.polygon(pantalla,AMARILLO,poligonos[2])
-
-	## Cruz 
-	pygame.draw.polygon(pantalla,MORADO,poligonos[3])
-
-	## Rectangulos internos 	
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[4])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[5])
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[6])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[7])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[8])
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[9])
-	pygame.draw.polygon(pantalla,NARANJA,poligonos[10])
-	pygame.draw.polygon(pantalla,PURPURA,poligonos[11])
-
-	## Laterales delanteros
-	pygame.draw.polygon(pantalla,BLANCO,poligonos[12])
-	pygame.draw.polygon(pantalla,ROJO,poligonos[13])
-
-	## Cuadrados superiores
-	pygame.draw.polygon(pantalla,VERDE,poligonos[14])
-	pygame.draw.polygon(pantalla,VERDE,poligonos[15])
-	pygame.draw.polygon(pantalla,VERDE,poligonos[16])
-	pygame.draw.polygon(pantalla,VERDE,poligonos[17])
+	dibujar_pol(poligonos)
 	
 
 	fin = False
