@@ -26,7 +26,7 @@ def escalar(p,s):
 	xp = p[0]*s[0]
 	yp = p[1]*s[1]
 
-	return [int(xp),int(yp)]
+	return [xp,yp]
 
 def traslacion(p,t):
 	xp = p[0] + t[0]
@@ -137,4 +137,11 @@ def rotacion_pol_h(poligono):
 	for pto in poligono:
 		poligono_2.append( rotacion_h(pto, 5) )
 
+	return poligono_2
+
+def escalar_pol(poligono, s):
+	poligono_2 = []
+	for pto in poligono:
+		poligono_2.append(escalar(pto, s))
+		
 	return poligono_2
